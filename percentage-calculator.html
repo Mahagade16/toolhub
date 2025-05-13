@@ -1,0 +1,279 @@
+<div class="percentage-calculator-container">
+  <h2>Percentage Calculator</h2>
+  <p class="calculator-description">Calculate percentages easily with this professional tool. Find percentage of a number, percentage increase/decrease, and more.</p>
+  
+  <div class="calculator-tabs">
+    <button class="tab-button active" onclick="openTab(event, 'find-percentage')">Find Percentage</button>
+    <button class="tab-button" onclick="openTab(event, 'increase-decrease')">Increase/Decrease</button>
+    <button class="tab-button" onclick="openTab(event, 'percentage-of')">Percentage Of</button>
+  </div>
+  
+  <!-- Find Percentage Tab -->
+  <div id="find-percentage" class="tab-content" style="display: block;">
+    <div class="input-group">
+      <label for="number1">What is</label>
+      <input type="number" id="number1" placeholder="e.g., 15">
+      <label for="number2">% of</label>
+      <input type="number" id="number2" placeholder="e.g., 200">
+      <span>?</span>
+    </div>
+    <button onclick="calculatePercentage()" class="calculate-btn">Calculate</button>
+    <div id="result1" class="result-box"></div>
+  </div>
+  
+  <!-- Increase/Decrease Tab -->
+  <div id="increase-decrease" class="tab-content">
+    <div class="input-group">
+      <label for="original-value">Original Value:</label>
+      <input type="number" id="original-value" placeholder="e.g., 100">
+    </div>
+    <div class="input-group">
+      <label for="percentage-change">Percentage Change:</label>
+      <input type="number" id="percentage-change" placeholder="e.g., 10 (for 10%)">
+      <select id="change-type">
+        <option value="increase">Increase</option>
+        <option value="decrease">Decrease</option>
+      </select>
+    </div>
+    <button onclick="calculateChange()" class="calculate-btn">Calculate</button>
+    <div id="result2" class="result-box"></div>
+  </div>
+  
+  <!-- Percentage Of Tab -->
+  <div id="percentage-of" class="tab-content">
+    <div class="input-group">
+      <label for="part-value">Part Value:</label>
+      <input type="number" id="part-value" placeholder="e.g., 25">
+    </div>
+    <div class="input-group">
+      <label for="whole-value">Whole Value:</label>
+      <input type="number" id="whole-value" placeholder="e.g., 200">
+    </div>
+    <button onclick="calculatePercentageOf()" class="calculate-btn">Calculate</button>
+    <div id="result3" class="result-box"></div>
+  </div>
+  
+  <div class="calculator-footer">
+    <p>Use this tool for financial calculations, discounts, statistics, and more.</p>
+  </div>
+</div>
+
+<style>
+.percentage-calculator-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.percentage-calculator-container h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.calculator-description {
+  text-align: center;
+  color: #7f8c8d;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.calculator-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tab-button {
+  padding: 10px 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #7f8c8d;
+  transition: all 0.3s;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-button:hover {
+  color: #2c3e50;
+}
+
+.tab-button.active {
+  color: #3498db;
+  border-bottom: 3px solid #3498db;
+  font-weight: 600;
+}
+
+.tab-content {
+  display: none;
+  padding: 15px 0;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.input-group label {
+  margin-right: 10px;
+  font-weight: 500;
+  min-width: 100px;
+}
+
+.input-group input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+  width: 120px;
+  font-size: 14px;
+}
+
+.input-group select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  font-size: 14px;
+}
+
+.calculate-btn {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  display: block;
+  margin: 20px auto;
+  transition: background 0.3s;
+}
+
+.calculate-btn:hover {
+  background: #2980b9;
+}
+
+.result-box {
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  border-left: 4px solid #3498db;
+  margin-top: 20px;
+  font-size: 16px;
+  display: none;
+}
+
+.calculator-footer {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #95a5a6;
+  text-align: center;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+@media (max-width: 600px) {
+  .input-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .input-group label {
+    margin-bottom: 5px;
+  }
+  
+  .input-group input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+</style>
+
+<script>
+function openTab(evt, tabName) {
+  // Hide all tab content
+  var tabcontent = document.getElementsByClassName("tab-content");
+  for (var i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  
+  // Remove active class from all tab buttons
+  var tabbuttons = document.getElementsByClassName("tab-button");
+  for (var i = 0; i < tabbuttons.length; i++) {
+    tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+  }
+  
+  // Show the current tab and add active class to the button
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+function calculatePercentage() {
+  var percent = parseFloat(document.getElementById("number1").value);
+  var number = parseFloat(document.getElementById("number2").value);
+  
+  if (isNaN(percent) || isNaN(number)) {
+    alert("Please enter valid numbers");
+    return;
+  }
+  
+  var result = (percent / 100) * number;
+  var resultBox = document.getElementById("result1");
+  resultBox.innerHTML = `<strong>Result:</strong> ${percent}% of ${number} is <strong>${result.toFixed(2)}</strong>`;
+  resultBox.style.display = "block";
+}
+
+function calculateChange() {
+  var original = parseFloat(document.getElementById("original-value").value);
+  var change = parseFloat(document.getElementById("percentage-change").value);
+  var changeType = document.getElementById("change-type").value;
+  
+  if (isNaN(original) || isNaN(change)) {
+    alert("Please enter valid numbers");
+    return;
+  }
+  
+  var result, explanation;
+  if (changeType === "increase") {
+    result = original * (1 + (change / 100));
+    explanation = `${change}% increase of ${original} is`;
+  } else {
+    result = original * (1 - (change / 100));
+    explanation = `${change}% decrease of ${original} is`;
+  }
+  
+  var resultBox = document.getElementById("result2");
+  resultBox.innerHTML = `<strong>Result:</strong> ${explanation} <strong>${result.toFixed(2)}</strong>`;
+  resultBox.style.display = "block";
+}
+
+function calculatePercentageOf() {
+  var part = parseFloat(document.getElementById("part-value").value);
+  var whole = parseFloat(document.getElementById("whole-value").value);
+  
+  if (isNaN(part) || isNaN(whole)) {
+    alert("Please enter valid numbers");
+    return;
+  }
+  
+  if (whole === 0) {
+    alert("Whole value cannot be zero");
+    return;
+  }
+  
+  var result = (part / whole) * 100;
+  var resultBox = document.getElementById("result3");
+  resultBox.innerHTML = `<strong>Result:</strong> ${part} is <strong>${result.toFixed(2)}%</strong> of ${whole}`;
+  resultBox.style.display = "block";
+}
+</script>
